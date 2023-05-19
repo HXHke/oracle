@@ -1,0 +1,4 @@
+time="2023-05-19T15:59:23+08:00" level=fatal msg="parse private key failed, err: open ../.ci/0x83309d045a19c44dc3722d15a6abd472f95866ac.pem: The system cannot find the path specified." func=Oracle/dao.GradeData file="F:/Oracle/dao/dataDao.go:26"
+ter to struct or slice" func=Oracle/dao.FindDataById file="F:/Oracle/dao/dataDao.go:34"
+/dao.FindDataById file="F:/Oracle/dao/dataDao.go:34"
+t found" func=Oracle/dao.Register file="F:/Oracle/dao/userDao.go:14"
