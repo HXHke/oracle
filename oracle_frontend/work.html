@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <link rel="icon" href="./favicon.ico">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work</title>
+    <link rel="stylesheet" href="./work.css">
+
+</head>
+
+<body>
+    <div class="body">
+        <div class="left">
+            <img src="./image/data.jpg" alt="">
+        </div>
+        <div class="right">
+            <h2 class="wel">Welcome to</h2>
+            <h2 class="orc">Oracle Assessment System</h2>
+            <div class="box">
+                <div class="login_box">
+                    <p>数据源ID</p>
+                    <input type="text" name='source' id='source' required />
+                </div>
+                <!-- <div class="login_box">
+                    <p>数据源链接</p>
+                    <input type="text" name='link' id='link' required />
+                </div> -->
+            </div>
+
+            <!-- <a href="./text.html">
+                Upload
+            </a> -->
+            <div id="uploadData"><a href="javascript:void(0);">
+                    Upload
+                </a></div>
+
+        </div>
+    </div>
+
+    <script src="jquery.min.js"></script>
+    <script>
+        //读取本地的字符串数据
+        let getLocalData = localStorage.getItem('localData');
+        //显示类型 这个时候是字符串类型
+        console.log(typeof (getLocalData));
+        //将字符串类转换为json格式
+        // let jsonObj = JSON.parse(getLocalData);
+        //从jsonObj中提取我们想要的数据
+        // console.log(jsonObj);
+        // console.log(typeof (jsonObj));
+
+        $("input").focus(function () {
+            $(this).css("color", "rgb(0,0,0)")
+        })
+        $("input").blur(function () {
+            $(this).css("color", "rgba(0,0,0,0.6)")
+        })
+
+        $('#uploadData').click(function () {
+
+            event.preventDefault();  // 阻止表单默认提交行为
+
+            let source = parseInt($('#source').val().trim())
+            // let link = $('#link').val().trim()
+            console.log(typeof (source));
+
+            if (source.length <= 0) {
+                return alert('请填写完整信息')
+            }
+
+            // 获取表单数据
+            let formData = {
+                data_source_id: source,
+            };
+            // $.ajaxSetup({ xhrFields: { withCredentials: true } });
+
+            $.ajax({
+                url: 'http://8.140.31.155:8080/data/findDataById',  // 后端接口地址
+                type: 'POST',  // 请求方式
+                // headers: { 'Content-Type': 'application/json;charset=utf8', 'Token': 'jsonObj' },
+                // async: false,
+                data: JSON.stringify(formData),  // 发送的数据
+                contentType: 'application/json; charset=utf-8',
+                headers: {
+                    token: localStorage.getItem("localData").replace(/\"/g, ""),
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE,OPTION"
+                },
+                // beforeSend: function (XMLHttpRequest) {
+                //     XMLHttpRequest.setRequestHeader("token", "jsonObj");
+                // },
+                //请求成功的回调函数
+                success: function (data) {
+                    $(location).attr("href", "./text.html")
+                    // 请求成功后的处理
+                    // let data_message = data
+                    localStorage.setItem('Data', JSON.stringify(data))
+                    console.log(JSON.stringify(data));
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    // 请求失败后的处理
+                    console.log(xhr.responseText);
+                    // console.log();
+                }
+            });
+
+            // var xmlhttp = new XMLHttpRequest();
+            // var obj = {
+            //     data_source_id: 1,
+            // };
+            // xmlhttp.open("POST", "http://8.140.31.155:8080/data/findDataById", true);
+            // xmlhttp.setRequestHeader("token", jsonObj); // 可以定义请求头带给后端
+            // xmlhttp.send(JSON.stringify(obj));  // 要发送的参数，要转化为json字符串发送给后端，后端就会接受到json对象
+            // // readyState == 4 为请求完成，status == 200为请求陈宫返回的状态
+            // xmlhttp.onreadystatechange = function () {
+            //     if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            //         console.log(xmlhttp.responseText);
+            //     }
+            // }
+
+        });
+    </script>
+</body>
+
+</html>

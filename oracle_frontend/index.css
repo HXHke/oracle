@@ -1,0 +1,49 @@
+body {
+    background: linear-gradient(to right, rgba(254, 172, 94, 0.4), rgba(199, 121, 208, 0.4), rgba(75, 192, 200, 0.4));
+}
+
+#epoch {
+    position: relative;
+    left: 120px;
+    top: 20px;
+    float: left;
+}
+
+#button a {
+    margin-left: 25px;
+    margin-top: 20px;
+}
+
+a {
+    font-size: 40px;
+    font-weight: 500;
+    text-decoration: none;
+    color: white;
+    float: left;
+    margin-right: 50px;
+    position: relative;
+    left: 250px;
+}
+
+a:hover {
+    color: rgba(52, 79, 201, 0.8);
+    transition-duration: 0.5s;
+}
+
+#num {
+    position: absolute;
+    top: 220px;
+    left: 350px;
+}
+
+#line {
+    position: absolute;
+    top: 520px;
+    left: 150px;
+}
+
+#main {
+    position: absolute;
+    top: 200px;
+    left: 870px;
+}
