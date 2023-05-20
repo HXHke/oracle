@@ -15,7 +15,6 @@ contract Oracle{
     //使用mapping(uint256 => struct),根据节点Id存储对应的struct
     mapping(uint256 => DataSourceNode) public IdToNode;
 
-    event 
 
     //增加节点
     function AddNode(uint256 NodeId) public {

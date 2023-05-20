@@ -43,22 +43,17 @@
                 <p>是否可信</p>
                 <input type="text" name='believe_or_not' id='believe_or_not' required />
             </div>
-            <button class="start">Start</button>
+            <button id="start">Start</button>
             <button class="reflect">Reflect</button>
         </div>
 
         <script src="./jquery.min.js"></script>
         <script>
-            let temp = 0
+            let temp = true
             //读取本地的字符串数据
             let getData_message = localStorage.getItem('Data');
-            console.log(typeof getData_message);
             //将字符串类转换为json格式对象
             let jsonObj = JSON.parse(getData_message);
-            console.log(jsonObj.data);
-            //从jsonObj中提取我们想要的数据
-            // console.log(jsonObj.ID);
-            // console.log(typeof (jsonObj));
             $("#source").val(jsonObj.data.ID)
             $("#importance").val(jsonObj.data.data_importance)
             $("#failure_rate").val(jsonObj.data.node_failure_rate)
@@ -67,11 +62,15 @@
             $("#usage_rate").val(jsonObj.data.usage_rate)
             $("#believe_or_not").val(jsonObj.data.is_believable)
 
+            let source = parseInt($('#source').val().trim())
+            let formData = {
+                data_source_id: +source
+            }
 
-            $(".start").click(function () {
-                $(".start").text("End")
-                if (temp == 0) {
-                    temp = 1
+        
+            $("#start").click(function () {
+              
+                if (temp) {
                     $.ajax({
                         url: 'http://8.140.31.155:8080/data/getStartTime',  // 后端接口地址
                         type: 'POST',  // 请求方式
@@ -83,52 +82,57 @@
                         },
                         success: function (data) {
                             console.log(data);
+                            temp = false;
+                            $(".start").text("End")
                         },
                         error: function (xhr, textStatus, errorThrown) {
                             // 请求失败后的处理
                             console.log("error");
                         }
                     });
-                } else {
-                    temp = 0
+
+                }
+                 else {
+                    
                     $.ajax({
                         url: 'http://8.140.31.155:8080/data/useData',  // 后端接口地址
                         type: 'POST',  // 请求方式
-                        data: {
-                            data_source_id: parseInt($("#source").val().trim())
-                        },  // 发送的数据
+                        data: JSON.stringify(formData),  // 发送的数据
                         headers: {
                             token: localStorage.getItem("localData").replace(/\"/g, ""),
-                            "Access-Control-Allow-Origin": "http://8.140.31.155:8080",
-                            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE,OPTION"
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE,OPTION",
                         },
                         success: function (data) {
                             console.log(data);
+                            temp = true
+                            $(".start").text("Start")
                         },
                         error: function (xhr, textStatus, errorThrown) {
                             // 请求失败后的处理
-                            console.log("error");
+                            console.log(textStatus);
                         }
                     });
+
+
+
+                
                 }
-
             })
+            
 
-
-            $("#reflect").click(function () {
+            $(".reflect").click(function () {
                 $.ajax({
                     url: 'http://8.140.31.155:8080/data/feedBack',  // 后端接口地址
                     type: 'POST',  // 请求方式
-                    data: {
-                        data_source_id: $("#source")
-                    },  // 发送的数据
+                    data: JSON.stringify(formData),  // 发送的数据
                     headers: {
-                        "token": jsonObj, // localStorage.getItem("localData").replace(/\"/g, "")
+                        "token": localStorage.getItem("localData").replace(/\"/g, ""),
                         "Access-Control-Allow-Origin": "http://8.140.31.155:8080",
                         "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE,OPTION"
                     },
                     success: function (data) {
-                        console.log(data);
+                        alert('Feedback successful')
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         // 请求失败后的处理

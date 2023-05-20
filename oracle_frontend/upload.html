@@ -44,6 +44,8 @@
                 <input type="text" name='believe_or_not' id='believe_or_not' required />
             </div>
             <a>Upload</a>
+
+
         </div>
 
         <script src="./jquery.min.js"></script>
@@ -55,18 +57,6 @@
                 $(this).css("color", "rgba(0,0,0,0.6)")
             })
 
-
-            // //读取本地的字符串数据
-            // let getData_message = localStorage.getItem('Data');
-            // //将字符串类转换为json格式
-            // let jsonObj = JSON.parse(getLocalData);
-            // //从jsonObj中提取我们想要的数据
-            // console.log(jsonObj);
-            // console.log(typeof (jsonObj));
-
-            // let getData_message = localStorage.getItem('Data');
-            //将字符串类转换为json格式对象
-            // let jsonObj = JSON.parse(getData_message);
 
             $("a").click(function () {
 
@@ -81,7 +71,7 @@
                 if (source.length <= 0 || importance.length <= 0 || failure_rate.length <= 0 || source_channel.length <= 0 || integrity.length <= 0 || usage_rate.length <= 0 || source.length <= 0 || believe_or_not.length <= 0) {
                     alert('Please fill in the complete information')
                 } else {
-                    console.log(JSON.stringify({
+                    let formData = {
                         node_id: parseInt(source),
                         data_importance: parseFloat(importance),
                         node_failure_rate: parseFloat(failure_rate),
@@ -89,25 +79,17 @@
                         integrity: parseFloat(integrity),
                         utilization: parseFloat(usage_rate),
                         result: parseInt(believe_or_not)
-                    }));
-                    // console.log(jsonObj);
+                    }
+              
                     $.ajax({
                         url: 'http://8.140.31.155:8080/data/gradeData',  // 后端接口地址
                         type: 'POST',  // 请求方式
-                        data: {
-                            node_id: source,
-                            data_importance: importance,
-                            node_failure_rate: failure_rate,
-                            source: source_channel,
-                            integrity: integrity,
-                            utilization: usage_rate,
-                            result: believe_or_not
-                        },  // 发送的数据
-                        // headers: {
-                        //     "token": jsonObj, // localStorage.getItem("localData").replace(/\"/g, "")
-                        //     // "Access-Control-Allow-Origin": "http://8.140.31.155:8080",
-                        //     // "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE,OPTION"
-                        // },
+                        data: JSON.stringify(formData),  // 发送的数据
+                        headers: {
+                            "token": localStorage.getItem("localData").replace(/\"/g, ""),
+                            "Access-Control-Allow-Origin": "http://8.140.31.155:8080",
+                            "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE,OPTION"
+                        },
                         // beforeSend: function (XMLHttpRequest) {
                         //     XMLHttpRequest.setRequestHeader("token", jsonObj);
                         // },
