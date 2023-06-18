@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7dc9e42b-d810-412f-9092-47aafe54f330" name="Changes" comment="Changes">
-      <change beforePath="$PROJECT_DIR$/oracle_contract/Oracle.sol" beforeDir="false" afterPath="$PROJECT_DIR$/oracle_contract/Oracle.sol" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oracle_backend/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/oracle_backend/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oracle_backend/config.toml" beforeDir="false" afterPath="$PROJECT_DIR$/oracle_backend/config.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oracle_backend/dao/dataDao.go" beforeDir="false" afterPath="$PROJECT_DIR$/oracle_backend/dao/dataDao.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oracle_backend/dao/dbConnect.go" beforeDir="false" afterPath="$PROJECT_DIR$/oracle_backend/dao/dbConnect.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oracle_backend/logger/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/oracle_backend/logger/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oracle_backend/logger/loginit.go" beforeDir="false" afterPath="$PROJECT_DIR$/oracle_backend/logger/loginit.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +50,7 @@
     "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
-    "last_opened_file_path": "F:/Oracle",
+    "last_opened_file_path": "F:/demoTemp",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
 }]]></component>
@@ -60,7 +66,7 @@
       <recent name="F:\Oracle\model_record" />
     </key>
   </component>
-  <component name="RunManager" selected="Go 构建.go build main.go">
+  <component name="RunManager" selected="Go 构建.go build Oracle">
     <configuration name="go build Oracle" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="Oracle" />
       <working_directory value="$PROJECT_DIR$" />
@@ -102,6 +108,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go 构建.go build Oracle" />
         <item itemvalue="Go 构建.go build main.go" />
         <item itemvalue="Go 测试.Oracle/dao 中的 TestCreateData" />
       </list>

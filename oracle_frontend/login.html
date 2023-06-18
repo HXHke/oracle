@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="./sweetalert.css">
+    <script src="./sweetalert-dev.js"></script>
 </head>
 
 <body>
@@ -73,7 +75,6 @@
             })
 
             $("li").hover(function () {
-                // $(".language").css("background-color", "rgba(0, 0, 0, 1)")
                 $(this).css({
                     "background-color": "rgb(150, 150, 190)",
                 })
@@ -96,9 +97,17 @@
 
                 let email = $('#email').val().trim()
                 let password = $('#pwd').val().trim()
+                let text = $(".language").text()
 
                 if (email.length <= 0 || password.length <= 0) {
-                    return alert('Please fill in the complete information')
+                    // return alert('Please fill in the complete information')
+                    if (text == "Language") {
+                        // alert("登录成功")
+                    return swal("请输入完整的信息"); 
+                    } else {
+                        // alert("Login successful")
+                    return swal("Please fill in the complete information")
+                    }
                 }
                 // 获取表单数据
                 let formData = {
@@ -114,11 +123,12 @@
                     data: JSON.stringify(formData),  // 发送的数据
                     success: function (data) {
                         // 请求成功后的处理
-                        let text = $(".language").text()
                         if (text == "Language") {
-                            alert("登录成功")
+                            // alert("登录成功")
+                            swal("登录成功","","success")
                         } else {
-                            alert("Login successful")
+                            // alert("Login successful")
+                            swal("Login successful","","success")
                         }
                         // console.log(typeof (data));
                         // console.log(data);
@@ -127,11 +137,14 @@
                         console.log(str_jsonData);
                         console.log(typeof (str_jsonData));
 
-                        $(location).attr("href", "./index.html")// http://8.140.31.155/home.html
+                        setTimeout(function(){
+                            $(location).attr("href", "./index.html")// http://8.140.31.155/home.html
+                        },1500)
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         // 请求失败后的处理
-                        alert("Wrong email or password");
+                        // alert("Wrong email or password");
+                        swal("Wrong email or password")
                     }
                 });
             });

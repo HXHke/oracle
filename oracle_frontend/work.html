@@ -14,7 +14,6 @@
 <body>
     <div class="body">
         <div class="left">
-            <img src="./image/data.jpg" alt="">
         </div>
         <div class="right">
             <h2 class="wel">Welcome to</h2>
@@ -54,7 +53,6 @@
             event.preventDefault();  // 阻止表单默认提交行为
 
             let source = parseInt($('#source').val().trim())
-            // let link = $('#link').val().trim()
             console.log(typeof (source));
 
             if (source.length <= 0) {
@@ -78,9 +76,8 @@
                 },
                 //请求成功的回调函数
                 success: function (data) {
-                    $(location).attr("href", "./text.html")
+                    $(location).attr("href", "./test.html")
                     // 请求成功后的处理
-                    // let data_message = data
                     localStorage.setItem('Data', JSON.stringify(data))
                     console.log(JSON.stringify(data));
                 },

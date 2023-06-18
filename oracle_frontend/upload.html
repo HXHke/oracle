@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload</title>
     <link rel="stylesheet" href="./upload.css">
+    <link rel="stylesheet" href="./sweetalert.css">
+    <script src="./sweetalert-dev.js"></script>
 </head>
 
 <body>
@@ -69,7 +71,8 @@
                 let believe_or_not = $("#believe_or_not").val().trim()
 
                 if (source.length <= 0 || importance.length <= 0 || failure_rate.length <= 0 || source_channel.length <= 0 || integrity.length <= 0 || usage_rate.length <= 0 || source.length <= 0 || believe_or_not.length <= 0) {
-                    alert('Please fill in the complete information')
+                    // alert('Please fill in the complete information')
+                    swal("Please fill in the complete information")
                 } else {
                     let formData = {
                         node_id: parseInt(source),
@@ -90,11 +93,12 @@
                             "Access-Control-Allow-Origin": "http://8.140.31.155:8080",
                             "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE,OPTION"
                         },
-                        // beforeSend: function (XMLHttpRequest) {
-                        //     XMLHttpRequest.setRequestHeader("token", jsonObj);
-                        // },
+                        
                         success: function (data) {
-                            console.log(data);
+                            // console.log(data);
+                            setTimeout(function(){
+                            swal("Evaluate node success", "", "success")
+                            },1000)
                         },
                         error: function (xhr, textStatus, errorThrown) {
                             // 请求失败后的处理

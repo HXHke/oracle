@@ -1,6 +1,6 @@
 module Oracle
 
-go 1.19
+go 1.18
 
 require (
 	github.com/FISCO-BCOS/go-sdk v1.0.0

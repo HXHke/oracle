@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="./register.css">
+    <link rel="stylesheet" href="./sweetalert.css">
+    <script src="./sweetalert-dev.js"></script>
 </head>
 
 <body>
@@ -52,7 +54,8 @@
             let password = $('#pwd').val().trim()
 
             if (email.length <= 0 || password.length <= 0 || name.length <= 0) {
-                return alert('Please fill in the complete information')
+                // return alert('Please fill in the complete information')
+                return swal("Please fill in the complete information")
             }
             // 获取表单数据
             let formData = {
@@ -71,18 +74,21 @@
                 dataType: 'json',  // 发送的数据
                 success: function (data) {
                     // 请求成功后的处理
-                    alert('Successful registration');
+                    // alert('Successful registration');
+                    swal("Successful registration")
                     let str_jsonData = JSON.stringify(data.data)
                     localStorage.setItem('localData', str_jsonData)
+
+                    setTimeout(function(){
                     $(location).attr("href", "./login.html")// http://8.140.31.155:8080/users/register
+
+                    },1500)
                     console.log(str_jsonData);
-
-
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     // 请求失败后的处理
-
-                    alert('This email has been registered');
+                    // alert('This email has been registered');
+                    swal("This email has been registered")
                 }
             });
         });

@@ -3,12 +3,9 @@ package controller
 import (
 	"Oracle/dao"
 	"encoding/json"
-	"fmt"
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"net/http"
-	"time"
 )
 
 func GradeDataHandle(c *gin.Context) {
@@ -96,7 +93,7 @@ func FindDataByIdHandle(c *gin.Context) {
 }
 
 func GetStartTimeHandle(c *gin.Context) {
-	email, ok := c.Get("email")
+	_, ok := c.Get("email")
 	if !ok {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"code": 1,
@@ -106,22 +103,16 @@ func GetStartTimeHandle(c *gin.Context) {
 		return
 	}
 
-	startTime := time.Now().Format("2006-01-02 15:04:05")
-	str := fmt.Sprint("startTime", email)
-	c.SetCookie(str, startTime, 3600, "/data/getStartTime", "", false, true)
-	session := sessions.Default(c)
-	session.Set(fmt.Sprint("startTime", email), startTime)
-	session.Save()
 	c.JSON(http.StatusOK, gin.H{
 		"code": 0,
 		"data": nil,
-		"msg":  "获取初始时间成功",
+		"msg":  "初始时间成功",
 	})
 
 }
 
 func UseDataHandle(c *gin.Context) {
-	email, ok := c.Get("email")
+	_, ok := c.Get("email")
 	if !ok {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"code": 1,
@@ -132,7 +123,8 @@ func UseDataHandle(c *gin.Context) {
 	}
 
 	var requestBody struct {
-		DataSourceId int `json:"data_source_id"`
+		DataSourceId int    `json:"data_source_id"`
+		DurationTime string `json:"duration_time"`
 	}
 
 	decoder := json.NewDecoder(c.Request.Body)
@@ -141,9 +133,7 @@ func UseDataHandle(c *gin.Context) {
 		logrus.Error(err)
 	}
 
-	session := sessions.Default(c)
-	startTime := session.Get(fmt.Sprint("startTime", email))
-	err = dao.UseData(requestBody.DataSourceId, startTime.(string))
+	err = dao.UseData(requestBody.DataSourceId, requestBody.DurationTime)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"code": 1,

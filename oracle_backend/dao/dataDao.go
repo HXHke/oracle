@@ -14,7 +14,6 @@ import (
 	"math/big"
 	"os/exec"
 	"strconv"
-	"time"
 )
 
 func GradeData(nodeId int64, dataImportance float32, NodeFailureRate float32, Source float32, integrity float32, Utilization float32, result int64) (bool, error) {
@@ -130,17 +129,15 @@ func FindDataById(dataId int) model.Data {
 	return data
 }
 
-func UseData(dataSourceId int, startTime string) error {
+func UseData(dataSourceId int, DurationTime string) error {
 	data := model.Data{}
 	err := DB.Table("data").Where("data_source_id = ?", dataSourceId).First(&data).Error
 	if err != nil {
 		logrus.Error(err)
 		return err
 	}
-	startTimeT, _ := time.Parse("2006-01-02 15:04:05", startTime)
-	nowtime := time.Now().Format("2006-01-02 15:04:05")
-	nowtimeT, _ := time.Parse("2006-01-02 15:04:05", nowtime)
-	newLevel := math.Log10(nowtimeT.Sub(startTimeT).Seconds())
+	dt, err := strconv.ParseFloat(DurationTime, 64)
+	newLevel := math.Log10(dt)
 	if int(newLevel) > data.BelievableLevel && int(newLevel) <= 10 {
 		data.BelievableLevel = int(newLevel)
 		err = DB.Table("data").Where("data_source_id = ?", dataSourceId).Updates(&data).Error

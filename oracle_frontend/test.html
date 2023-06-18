@@ -6,13 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text</title>
-    <link rel="stylesheet" href="./text.css">
+    <link rel="stylesheet" href="./test.css">
+    <link rel="stylesheet" href="./sweetalert.css">
+    <script src="./sweetalert-dev.js"></script>
 </head>
 
 <body>
     <div class="body">
         <div class="left">
-            <img src="./image/tel.jpg" alt="">
+            <!-- <img src="./image/tel.jpg" alt=""> -->
         </div>
         <div class="right">
             <div class="login_box">
@@ -43,7 +45,7 @@
                 <p>是否可信</p>
                 <input type="text" name='believe_or_not' id='believe_or_not' required />
             </div>
-            <button id="start">Start</button>
+            <button class="start">Start</button>
             <button class="reflect">Reflect</button>
         </div>
 
@@ -68,8 +70,13 @@
             }
 
         
-            $("#start").click(function () {
-              
+            $(".start").click(function () {
+                // if ($(".start").text() == "Start"){
+                //     temp = true
+                // }else {
+                //     temp = false
+                // }
+
                 if (temp) {
                     $.ajax({
                         url: 'http://8.140.31.155:8080/data/getStartTime',  // 后端接口地址
@@ -83,7 +90,7 @@
                         success: function (data) {
                             console.log(data);
                             temp = false;
-                            $(".start").text("End")
+                            $(".start").text("End").css("padding","10px 73px")
                         },
                         error: function (xhr, textStatus, errorThrown) {
                             // 请求失败后的处理
@@ -132,7 +139,8 @@
                         "Access-Control-Allow-Methods": "POST, GET, PUT, DELETE,OPTION"
                     },
                     success: function (data) {
-                        alert('Feedback successful')
+                        // alert('Feedback successful')
+                        swal("Feedback successful")
                     },
                     error: function (xhr, textStatus, errorThrown) {
                         // 请求失败后的处理
